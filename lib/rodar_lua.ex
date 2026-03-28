@@ -15,8 +15,9 @@ defmodule RodarLua do
       # In your Application.start/2 callback:
       Rodar.Expression.ScriptRegistry.register("lua", RodarLua.Engine)
 
-  The engine receives the current process data as Lua globals and returns the
-  script result back to the BPMN context:
+  The engine receives the current process data as Lua globals and stores the
+  script's first return value in the process context under the `:script_result`
+  key (or a custom key when the task specifies `output_variable`):
 
       <scriptTask id="calc" name="Calculate Total" scriptFormat="lua">
         <script>return price * quantity</script>

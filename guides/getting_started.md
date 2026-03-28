@@ -67,7 +67,8 @@ Execute it with process data:
 ```
 
 The script receives `name` as a Lua global variable and returns
-`"Hello, Alice!"`, which is stored in the BPMN context.
+`"Hello, Alice!"`, which is stored in the process context under the
+`:script_result` key.
 
 ## Direct Evaluation
 

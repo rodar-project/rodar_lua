@@ -58,7 +58,9 @@ return total
 
 ## Return Values
 
-The engine captures the **first** return value from the script:
+The engine captures the **first** return value from the script and stores it
+in the process context under `:script_result` (or a custom key if the task
+sets `output_variable`):
 
 ```lua
 -- Single return (most common):

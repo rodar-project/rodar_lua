@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `ex_doc` dependency for documentation generation
 - Enhanced docs config with `source_url`, `homepage_url`, and `groups_for_modules`
 
+### Changed
+
+- Clarified where script return values are stored (`:script_result` key by default,
+  or custom key via `output_variable`) in moduledoc, README, and guides
+
 ## [0.2.2] - 2026-03-28
 
 ### Changed

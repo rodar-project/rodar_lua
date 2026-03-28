@@ -33,7 +33,8 @@ Then use `scriptFormat="lua"` in your BPMN diagrams:
 ```
 
 The current process data map is injected as Lua globals. The script's first
-return value is stored in the BPMN context under the configured output variable.
+return value is stored in the process context under the `:script_result` key by
+default, or a custom key when the task specifies `output_variable`.
 
 ## Usage
 
