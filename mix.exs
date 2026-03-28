@@ -37,7 +37,7 @@ defmodule RodarLua.MixProject do
 
   defp deps do
     [
-      {:rodar, github: "rodar-project/rodar"},
+      {:rodar, "~> 1.4"},
       {:rodar_release, "~> 1.2", only: :dev, runtime: false},
       {:luerl, "~> 1.2"}
     ]
