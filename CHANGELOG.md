@@ -7,7 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Switched `rodar_release` dependency from GitHub source to Hex package (`~> 1.2`)
+
 ## [0.2.0] - 2026-03-13
+
+### Changed
+
+- Renamed project from `rodar_bpmn_lua` to `rodar_lua`, aligning with core project
+  rename from `rodar_bpmn` to `rodar` — modules, app name, file paths, and docs updated
+- Switched `rodar` dependency from local path to GitHub source
 
 ## [0.1.0] - 2026-03-12
 
