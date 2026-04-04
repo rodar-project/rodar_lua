@@ -106,24 +106,68 @@ defmodule RodarLua.EngineTest do
   end
 
   describe "sandboxing" do
+    # Dangerous operations must error when invoked
+
     test "os.execute is blocked" do
-      assert {:ok, result} = Engine.eval("return os.execute", %{})
-      assert result != nil or result == nil
+      assert {:error, _reason} = Engine.eval("return os.execute('ls')", %{})
     end
 
     test "io.open is blocked" do
-      assert {:ok, result} = Engine.eval("return io", %{})
-      refute is_map(result) and map_size(result) > 0
+      assert {:error, _reason} = Engine.eval("return io.open('/etc/passwd', 'r')", %{})
     end
 
     test "require is blocked" do
-      assert {:ok, result} = Engine.eval("return require", %{})
-      refute is_function(result)
+      assert {:error, _reason} = Engine.eval("return require('os')", %{})
     end
 
     test "loadfile is blocked" do
-      assert {:ok, result} = Engine.eval("return loadfile", %{})
-      refute is_function(result)
+      assert {:error, _reason} = Engine.eval("return loadfile('test.lua')()", %{})
+    end
+
+    test "dofile is blocked" do
+      assert {:error, _reason} = Engine.eval("return dofile('test.lua')", %{})
+    end
+
+    test "load is blocked" do
+      assert {:error, _reason} = Engine.eval("return load('return 1')()", %{})
+    end
+
+    test "os.getenv is blocked" do
+      assert {:error, _reason} = Engine.eval("return os.getenv('HOME')", %{})
+    end
+
+    test "os.remove is blocked" do
+      assert {:error, _reason} = Engine.eval("return os.remove('/tmp/test')", %{})
+    end
+
+    test "os.rename is blocked" do
+      assert {:error, _reason} = Engine.eval("return os.rename('/tmp/a', '/tmp/b')", %{})
+    end
+
+    test "os.tmpname is blocked" do
+      assert {:error, _reason} = Engine.eval("return os.tmpname()", %{})
+    end
+
+    # Safe os functions should remain available
+
+    test "os.time is allowed" do
+      assert {:ok, result} = Engine.eval("return os.time()", %{})
+      assert is_integer(result) and result > 0
+    end
+
+    test "os.date is allowed" do
+      assert {:ok, result} = Engine.eval("return os.date('%Y')", %{})
+      assert is_binary(result)
+    end
+
+    test "os.clock is allowed" do
+      assert {:ok, result} = Engine.eval("return os.clock()", %{})
+      assert is_number(result) and result >= 0
+    end
+
+    test "os.difftime is allowed" do
+      assert {:ok, result} = Engine.eval("return os.difftime(1000, 500)", %{})
+      assert result == 500
     end
   end
 
